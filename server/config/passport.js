@@ -9,7 +9,7 @@ module.exports = function(passport) {
     opts.secretOrKey = keys.secret;
     //payload contains the userinfo
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-        console.log("jwt_payload info", jwt_payload.data._id);
+        // console.log("jwt_payload info", jwt_payload.data._id);
         // error is here
         User.findById(jwt_payload.data._id, function(err, user) {
             if (err) {

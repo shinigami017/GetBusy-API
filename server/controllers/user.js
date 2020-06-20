@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
 const User = require("../models/user");
+const Slot = require("../models/slot");
 
 module.exports = {
     RegisterUser: (req, res) => {
@@ -86,17 +87,54 @@ module.exports = {
                     const token = jwt.sign({ data: user }, keys.secret, {
                         expiresIn: 604800 // 1 week
                     });
-                    res.json({
-                        success: true,
-                        token: "Bearer " + token,
-                        user: {
-                            id: user._id,
-                            name: user.name,
-                            email: user.email
+                    user.api_url = "/getbusy.com/" + user._id;
+                    user.save(function(error, user) {
+                        if (error) {
+                            console.log(error);
+                            return res.status(400).json({ success: false, msg: "Something went wrong. Please try again" });
                         }
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token,
+                            user: {
+                                id: user._id,
+                                name: user.name,
+                                email: user.email,
+                                api_url: "/getbusy.com/" + user.api_url
+                            }
+                        });
                     });
+
                 }
             });
+        });
+    },
+    DefineSlot: (req, res) => {
+        const date = req.body.date;
+        const time = req.body.time;
+        const owner = req.user._id;
+        const slot = new Slot({ date: date, time: time, owner: owner });
+        slot.save(function(error, savedSlot) {
+            if (error) {
+                console.log(error);
+                return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+            }
+            if (savedSlot) {
+                User.findById(req.user._id, function(error, foundUser) {
+                    if (error) {
+                        console.log(error);
+                        return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+                    }
+                    foundUser.slots.push(savedSlot);
+                    foundUser.save(function(error, savedUser) {
+                        if (error) {
+                            console.log(error);
+                            return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+                        }
+                        return res.status(200).json({ success: true, msg: "Slot saved succesfully" });
+                    });
+                });
+            }
         });
     }
 };

@@ -33,9 +33,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         expires: false,
-        // domain: config.cookie.domain
-    },
-    // session: true
+    }
 }));
 
 //Passport
@@ -48,26 +46,17 @@ require("./server/config/passport")(passport);
 db.connect();
 
 
-
-app.get("/", (req, res) => {
-    // res.sendFile(path.join(__dirname, "/dist/mean/index.html"));
-});
-
-// test routes
-app.get("/test", (req, res) => {
-    res.send("test works!!");
-});
-
-
-
 // Users routes
-const users = require("./server/routes/users");
-app.use("/users", users);
+const usersRoute = require("./server/routes/users");
+app.use("/getbusy.com/users", usersRoute);
 
-// checks in out 
-// const checksInOut = require("./server/routes/checksInOut");
-// app.use("/check", checksInOut);
+// Slots routes
+const slotsRoute = require("./server/routes/slots");
+app.use("/getbusy.com", slotsRoute);
 
+// Index routes
+const indexRoute = require("./server/routes/index");
+app.use("/", indexRoute);
 
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);
