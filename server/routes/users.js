@@ -13,6 +13,9 @@ router.post("/authenticate", UserController.LoginUser);
 // Define slots
 router.post("/slot", passport.authenticate("jwt", { session: false }), UserController.DefineSlot);
 
+// get Users route for persosnal use
+router.get("/", UserController.GetAllUsers);
+
 
 
 module.exports = router;
