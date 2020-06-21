@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/getbusy.com", (req, res) => {
-    res.send("Welcome to GetBusy.com...");
+    res.send("Welcome to GetBusy api...");
 });
 
 module.exports = router;
