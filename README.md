@@ -24,7 +24,7 @@ This project is solution for Navigus Assignment 2, given to selective students d
 
 1. Register user (POST)
 ```sh
-> http://localhost:4000/getbusy.com/users/register 
+> https://getbusyapi.herokuapp.com/getbusy.com/users/register 
   Request body
  { 
   "name":"test",
@@ -34,7 +34,7 @@ This project is solution for Navigus Assignment 2, given to selective students d
 ```
 2. Login User (POST)
 ```sh
-> http://localhost:4000/getbusy.com/users/authenticate
+> https://getbusyapi.herokuapp.com/getbusy.com/users/authenticate
   Request body 
   { 
   "email":"test@test.com",
@@ -43,7 +43,7 @@ This project is solution for Navigus Assignment 2, given to selective students d
 ```
 3. Define slot (POST)
 ```sh
-> http://localhost:4000/getbusy.com/users/slot
+> https://getbusyapi.herokuapp.com/getbusy.com/users/slot
   Request body 
   { 
   "date": "Tue, 23 Jun 2020 10:08:18 GMT",
@@ -54,14 +54,14 @@ This project is solution for Navigus Assignment 2, given to selective students d
 ```
 4. Get all slots of a user (GET)
 ```sh
-> http://localhost:4000/getbusy.com/<unique_user_id>/slots
+> https://getbusyapi.herokuapp.com/getbusy.com/<unique_user_id>/slots
 
 This url is unique for all users, as this url allows users to see the specific user's available time slots.
 You can find this url in user object
 ```
 5. Book a slot (POST)
 ```sh
-> http://localhost:4000/getbusy.com/<unique_user_id>/slots/<unique_slot_id>
+> https://getbusyapi.herokuapp.com/getbusy.com/<unique_user_id>/slots/<unique_slot_id>
   Request body 
   { 
   "title": "Webinar on Web Development",
