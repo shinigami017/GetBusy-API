@@ -71,3 +71,10 @@ You can find this url in user object
 This url is unique for all slots of all users, as this url allows users book the specific user's specific time slot.
 You can find this url in user object
 ```
+6. Get all users (GET)
+```sh
+> https://getbusyapi.herokuapp.com/getbusy.com/users/
+
+This route will show all the existing users and their time slots, along with thier bookings.
+You can use this information to login, and provide <unique_id> in other POST routes mentioned above.
+```
