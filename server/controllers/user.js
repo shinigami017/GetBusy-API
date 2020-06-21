@@ -136,5 +136,14 @@ module.exports = {
                 });
             }
         });
+    },
+    GetAllUsers: (req, res) => {
+        User.find({}).populate("").populate("slots").exec(function(error, users) {
+            if (error) {
+                 console.log(error);
+                 return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+            }
+            return res.status(200).json({ success: true, users: users });
+        });
     }
 };
